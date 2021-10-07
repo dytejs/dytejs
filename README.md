@@ -5,7 +5,7 @@
 ## Official state management library for DativeJs
 
 ```js
-import Dative from 'https://cdn.jsdelivr.net/gh/dativeJs/dativejs@main/dist/dative.es.min.js';
+import Dative from 'https://cdn.jsdelivr.net/gh/dativeJs/dativejs@v1/dist/dative.es.min.js';
  import Dyte from 'https://cdn.jsdelivr.net/npm/dytejs@1.0.0/dist/dyte.es.min.js';
       
   Dative.use(Dyte);
@@ -31,7 +31,7 @@ import Dative from 'https://cdn.jsdelivr.net/gh/dativeJs/dativejs@main/dist/dati
     store: store,
     computed:{
       count(){
-        return this.store.state.count
+        return store.state.count
       }
     }
     template: function(){
@@ -48,4 +48,5 @@ import Dative from 'https://cdn.jsdelivr.net/gh/dativeJs/dativejs@main/dist/dati
     }
    })
 vm.render();
+store.subscribe(()=> vm.render());
 ```
