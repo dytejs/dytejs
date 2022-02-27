@@ -5,48 +5,40 @@
 ## Official state management library for DativeJs
 
 ```js
-import Dative from 'https://cdn.jsdelivr.net/gh/dativeJs/dativejs@v1/dist/dative.es.min.js';
- import Dyte from 'https://cdn.jsdelivr.net/npm/dytejs@1.0.0/dist/dyte.es.min.js';
-      
-  Dative.use(Dyte);
-     
-  var store = new Dyte.Store({
+import Dative from 'dativejs';
+import { defineStore, connect } from 'dytejs';
+
+
+
+  var store = defineStore ({
     state:{
      count: 0
     },
-    mutations:{
-     increment(state){
-        state.count++
-     }
-    },
     actions:{
-     increase({ commit }){
-      commit('increment')
+     increase(){
+      this.count+=1
      }
    }
   })
      
-  var vm = new Dative({
+  var app = new Dative({
     el: "#app",
-    store: store,
-    computed:{
-      count(){
-        return store.state.count
-      }
-    }
     template: function(){
      return `
+        <div>
         <h1>Testing dyte</h1>
-        <p>Count: {{ count }}</p>
-        <button on:click="counter">Add #1</button>
-           `
+        <p>Count: {{$store.count}}</p>
+        <button on:click="counter()">Add #1</button>
+        </div>
+        `
     },
     methods:{
       counter: function(){
-       this.store.dispatch('increase');
+       this.$store.dispatch('increase');
       }
     }
    })
-vm.render();
-store.subscribe(()=> vm.render());
+app.use(store);
+app.render();
+connect()(app);
 ```
